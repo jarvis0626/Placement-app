@@ -1,0 +1,72 @@
+/* Student Profile Page Styles */
+body {
+  font-family: Inter, "Noto Sans", sans-serif;
+  background: #fff;
+}
+.sidebar {
+  width: 16rem;
+  min-height: 100vh;
+  background: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 0.5rem;
+  border-right: 1px solid #e5e7eb;
+}
+.sidebar-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #111418;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+.sidebar-profile-pic {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: #dbe0e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #60758a;
+}
+.sidebar-profile-info {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-profile-name {
+  color: #111418;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.sidebar-profile-role {
+  font-size: 0.75rem;
+  color: #60758a;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #111418;
+  font-weight: 500;
+  font-size: 1.125rem;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.sidebar-link:hover {
+  color: #0c7ff2;
+}

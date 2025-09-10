@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900" />
+    <link rel="stylesheet" href="interview.css" />
+    <title>Placment App</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex min-h-screen flex-row bg-white overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h1 class="sidebar-title">Placement App</h1>
+        <div class="sidebar-profile">
+          <div class="sidebar-profile-pic">E</div>
+          <div class="sidebar-profile-info">
+            <div class="sidebar-profile-name">Emily Carter</div>
+            <div class="sidebar-profile-role">Student Placement Officer</div>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="flex items-center gap-3 text-[#111418] font-medium text-lg hover:text-[#0c7ff2]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Dashboard
+          </a>
+          <a href="dashboard.html" class="flex items-center gap-3 text-[#111418] font-medium text-lg hover:text-[#0c7ff2]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Companies
+          </a>
+          <a href="student.html" class="flex items-center gap-3 text-[#111418] font-medium text-lg hover:text-[#0c7ff2]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Students
+          </a>
+          <a href="interview.html" class="flex items-center gap-3 text-[#111418] font-medium text-lg hover:text-[#0c7ff2]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 17l4 4 4-4m-4-5v9" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="7" width="20" height="12" rx="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Placements
+          </a>
+          <a href="#" class="flex items-center gap-3 text-[#111418] font-medium text-lg hover:text-[#0c7ff2]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3v5m8-5v5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 13h-4v4h4v-4z"/></svg>
+            Reports
+          </a>
+        </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="flex-1 flex flex-col items-center justify-center py-10">
+        <div class="w-full max-w-3xl bg-white rounded-xl shadow p-8">
+          <h2 class="text-2xl font-bold text-[#111418] mb-6 text-center">Interview Slot Booking</h2>
+          <div class="mb-8">
+            <label class="block text-[#60758a] font-medium mb-2">Select Date:</label>
+            <input type="date" id="datePicker" class="form-input border border-[#dbe0e6] rounded-lg h-11 px-4 text-base w-full" />
+          </div>
+          <div>
+            <label class="block text-[#60758a] font-medium mb-2">Available Slots:</label>
+            <div id="slotsContainer" class="grid grid-cols-4 gap-4 mb-6">
+              <!-- Slots will be rendered here -->
+            </div>
+            <div id="selectedSlot" class="text-[#0c7ff2] font-semibold mb-4"></div>
+            <button id="bookBtn" class="bg-[#0c7ff2] text-white font-bold rounded-lg px-6 py-2 text-sm hover:bg-[#0967c2] w-full" disabled>Book Slot</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      // Example slot data for demonstration
+      const slotsByDate = {
+        '2025-07-03': ['09:00 AM', '10:00 AM', '11:00 AM', '02:00 PM', '03:00 PM'],
+        '2025-07-04': ['10:00 AM', '11:00 AM', '01:00 PM', '03:00 PM'],
+        '2025-07-05': ['09:00 AM', '12:00 PM', '02:00 PM'],
+      };
+      const slotsContainer = document.getElementById('slotsContainer');
+      const datePicker = document.getElementById('datePicker');
+      const selectedSlotDiv = document.getElementById('selectedSlot');
+      const bookBtn = document.getElementById('bookBtn');
+      let selectedSlot = null;
+      function renderSlots(date) {
+        slotsContainer.innerHTML = '';
+        selectedSlot = null;
+        selectedSlotDiv.textContent = '';
+        bookBtn.disabled = true;
+        if (slotsByDate[date]) {
+          slotsByDate[date].forEach(slot => {
+            const btn = document.createElement('button');
+            btn.className = 'py-2 px-4 rounded-lg border border-[#dbe0e6] text-[#111418] font-medium hover:bg-[#e5e7eb] focus:bg-[#0c7ff2] focus:text-white transition';
+            btn.textContent = slot;
+            btn.onclick = () => {
+              selectedSlot = slot;
+              selectedSlotDiv.textContent = `Selected Slot: ${slot}`;
+              bookBtn.disabled = false;
+              // Highlight selected
+              Array.from(slotsContainer.children).forEach(b => b.classList.remove('bg-[#0c7ff2]', 'text-white'));
+              btn.classList.add('bg-[#0c7ff2]', 'text-white');
+            };
+            slotsContainer.appendChild(btn);
+          });
+        } else {
+          slotsContainer.innerHTML = '<div class="col-span-4 text-[#60758a]">No slots available for this date.</div>';
+        }
+      }
+      datePicker.addEventListener('change', e => {
+        renderSlots(e.target.value);
+      });
+      bookBtn.addEventListener('click', () => {
+        if (selectedSlot) {
+          alert(`Slot booked: ${selectedSlot}`);
+        }
+      });
+      // Set default date to today if available
+      const today = new Date().toISOString().slice(0, 10);
+      if (slotsByDate[today]) {
+        datePicker.value = today;
+        renderSlots(today);
+      }
+    </script>
+  </body>
+</html>
